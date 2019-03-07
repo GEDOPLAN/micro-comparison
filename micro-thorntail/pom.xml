@@ -15,7 +15,6 @@
   <packaging>war</packaging>
 
   <properties>
-    <h2.version>1.4.193</h2.version>
     <thorntail.version>2.3.0.Final</thorntail.version>
   </properties>
 
@@ -69,6 +68,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.193</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
@@ -97,4 +102,38 @@
       </plugin>
     </plugins>
   </build>
+  
+    <profiles>
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.28.0</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>gedoplan/${project.artifactId}</name>
+                  <build>
+                    <dockerFileDir>${project.basedir}</dockerFileDir>
+                  </build>
+                </image>
+              </images>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  
 </project>
