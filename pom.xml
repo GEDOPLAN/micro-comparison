@@ -23,6 +23,7 @@
   </repositories>
 
   <modules>
+    <module>micro-thorntail</module>
     <module>micro-wildfly</module>
   </modules>
 
