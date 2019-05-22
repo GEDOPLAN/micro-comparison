@@ -1,6 +1,13 @@
 FROM jboss/wildfly:16.0.0.Final
 
-ADD maven/* /opt/jboss/wildfly/standalone/deployments/
+# Add deployment
+ADD --chown=jboss:jboss maven/* /opt/jboss/wildfly/standalone/deployments/
 
-#ENTRYPOINT ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
-#CMD []
+USER jboss
+
+# Setup WildFly
+ADD --chown=jboss:jboss src/main/wildfly/wildfly-setup.cli $HOME
+RUN cd $HOME \
+    && sh $JBOSS_HOME/bin/jboss-cli.sh --file=wildfly-setup.cli \
+    && rm wildfly-setup.cli \
+    && rm -fr $JBOSS_HOME/standalone/configuration/standalone_xml_history

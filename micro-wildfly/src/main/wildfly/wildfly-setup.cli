@@ -1,0 +1,3 @@
+embed-server --server-config=standalone.xml --std-out=discard
+data-source add --name=showcase --jndi-name=java:/jdbc/showcase --driver-name=h2 --connection-url=jdbc:h2:~/h2/showcase;AUTO_SERVER=TRUE --user-name=showcase --password=showcase
+stop-embedded-server

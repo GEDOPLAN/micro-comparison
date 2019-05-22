@@ -103,4 +103,16 @@
     </dependencies>
   </dependencyManagement>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>0.30.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
 </project>
