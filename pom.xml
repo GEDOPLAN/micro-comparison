@@ -6,14 +6,17 @@
   <parent>
     <groupId>de.gedoplan</groupId>
     <artifactId>build-master</artifactId>
-    <version>2018.1.2</version>
+    <version>2019.5.1</version>
   </parent>
 
-  <groupId>de.gedoplan</groupId>
   <artifactId>micro-comparison</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <packaging>pom</packaging>
+
+  <properties>
+    <java.code.version>1.8</java.code.version>
+  </properties>
 
   <repositories>
     <repository>
@@ -23,12 +26,20 @@
   </repositories>
 
   <modules>
-    <module>micro-thorntail</module>
+    <module>micro-kumuluzee</module>
+    <!-- TODO Thorntail startet wg. diverser fehlender Dependencies nicht -->
+    <!-- <module>micro-thorntail</module> -->
     <module>micro-wildfly</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>1.4.193</version>
+      </dependency>
+
       <dependency>
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
@@ -38,13 +49,13 @@
       <dependency>
         <groupId>de.gedoplan</groupId>
         <artifactId>baselibs-persistence</artifactId>
-        <version>1.6</version>
+        <version>1.7</version>
       </dependency>
 
       <dependency>
         <groupId>de.gedoplan</groupId>
         <artifactId>baselibs-utils</artifactId>
-        <version>1.6</version>
+        <version>1.7</version>
       </dependency>
 
       <dependency>
@@ -70,7 +81,7 @@
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <version>1.16.12</version>
+        <version>1.18.8</version>
       </dependency>
 
       <dependency>

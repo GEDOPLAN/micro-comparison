@@ -1,0 +1,10 @@
+kumuluzee:
+  openapi:
+    enabled: false
+  datasources:
+    - jndi-name: jdbc/showcase
+      connection-url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: sa
+      pool:
+        max-size: 20
