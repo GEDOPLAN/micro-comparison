@@ -1,6 +1,4 @@
 kumuluzee:
-  openapi:
-    enabled: false
   datasources:
     - jndi-name: jdbc/showcase
       connection-url: jdbc:h2:~/h2/showcase;AUTO_SERVER=TRUE
