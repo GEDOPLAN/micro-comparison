@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>de.gedoplan</groupId>
   <artifactId>micro-wildfly</artifactId>
+
   <packaging>war</packaging>
 
   <dependencies>
