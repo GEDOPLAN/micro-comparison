@@ -27,6 +27,7 @@
 
   <modules>
     <module>micro-kumuluzee</module>
+    <module>micro-spring</module>
     <!-- TODO Thorntail startet wg. diverser fehlender Dependencies nicht -->
     <!-- <module>micro-thorntail</module> -->
     <module>micro-wildfly</module>
