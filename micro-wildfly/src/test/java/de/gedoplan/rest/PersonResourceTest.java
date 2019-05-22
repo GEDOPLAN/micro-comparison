@@ -28,17 +28,13 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PersonResourceTest {
-  private static final String serverUrl = "http://localhost:8080";
-  private static final String serverUrlWebContext = serverUrl;
-  private static final String serverUrlRestContext = serverUrlWebContext + "/rs";
-
   private static Client client;
   private static WebTarget personTarget;
 
   @BeforeClass
   public static void beforeClass() {
     client = ClientBuilder.newClient();
-    personTarget = client.target(serverUrlRestContext + "/person");
+    personTarget = client.target("http://localhost:8080/person");
   }
 
   @AfterClass
