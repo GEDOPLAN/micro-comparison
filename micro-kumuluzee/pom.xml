@@ -113,6 +113,30 @@
 
   <build>
     <finalName>${project.artifactId}</finalName>
+
+    <plugins>
+      <!-- KumuluzEE benötigt die Anwendungsklassen exploded, daher kein JAR bauen -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-install</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
   <profiles>
@@ -123,7 +147,6 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.28.0</version>
             <configuration>
               <images>
                 <image>
@@ -131,7 +154,27 @@
                   <build>
                     <dockerFileDir>${project.basedir}</dockerFileDir>
                     <assembly>
-                      <descriptorRef>artifact</descriptorRef>
+                      <inline>
+                        <includeBaseDirectory>false</includeBaseDirectory>
+                        <fileSets>
+                          <fileSet>
+                            <directory>${project.build.directory}</directory>
+                            <includes>
+                              <include>classes/**</include>
+                            </includes>
+                            <outputDirectory>.</outputDirectory>
+                            <fileMode>0644</fileMode>
+                          </fileSet>
+                        </fileSets>
+                        <dependencySets>
+                          <dependencySet>
+                            <useProjectArtifact>false</useProjectArtifact>
+                            <scope>runtime</scope>
+                            <outputDirectory>lib</outputDirectory>
+                            <fileMode>0644</fileMode>
+                          </dependencySet>
+                        </dependencySets>
+                      </inline>
                     </assembly>
                   </build>
                 </image>

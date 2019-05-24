@@ -1,6 +1,14 @@
-FROM jboss/wildfly:16.0.0.Final
+FROM openjdk:8
+#FROM gcr.io/distroless/java
 
-ADD maven/* /opt/jboss/wildfly/standalone/deployments/
+RUN useradd -m micro
 
-#ENTRYPOINT ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
-#CMD []
+USER micro
+
+COPY --chown=micro:micro maven /home/micro
+
+WORKDIR /home/micro
+
+ENTRYPOINT [ "java", "-cp", "classes:lib/*", "de.gedoplan.KumuluzeeMain" ]
+
+EXPOSE 8080
