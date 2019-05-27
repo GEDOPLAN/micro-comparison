@@ -1,4 +1,4 @@
-package de.gedoplan.entity;
+package de.gedoplan.showcase.entity;
 
 import de.gedoplan.baselibs.persistence.entity.GeneratedIntegerIdEntity;
 
