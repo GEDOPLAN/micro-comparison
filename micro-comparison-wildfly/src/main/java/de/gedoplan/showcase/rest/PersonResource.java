@@ -1,7 +1,7 @@
-package de.gedoplan.rest;
+package de.gedoplan.showcase.rest;
 
-import de.gedoplan.entity.Person;
-import de.gedoplan.persistence.PersonRepository;
+import de.gedoplan.showcase.entity.Person;
+import de.gedoplan.showcase.persistence.PersonRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;

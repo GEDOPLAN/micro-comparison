@@ -1,6 +1,6 @@
-package de.gedoplan.service;
+package de.gedoplan.showcase.service;
 
-import de.gedoplan.entity.Person;
+import de.gedoplan.showcase.entity.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;

@@ -1,4 +1,4 @@
-package de.gedoplan.persistence;
+package de.gedoplan.showcase.persistence;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
