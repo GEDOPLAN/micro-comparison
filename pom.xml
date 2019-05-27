@@ -6,9 +6,10 @@
   <parent>
     <groupId>de.gedoplan</groupId>
     <artifactId>build-master</artifactId>
-    <version>2019.5.1</version>
+    <version>2019.5.2</version>
   </parent>
 
+  <groupId>de.gedoplan.showcase</groupId>
   <artifactId>micro-comparison</artifactId>
   <version>1.0-SNAPSHOT</version>
 
@@ -27,6 +28,7 @@
 
   <modules>
     <module>micro-comparison-kumuluzee</module>
+    <module>micro-comparison-quarkus</module>
     <module>micro-comparison-spring</module>
     <!-- TODO Thorntail startet wg. diverser fehlender Dependencies nicht -->
     <!-- <module>micro-thorntail</module> -->
@@ -50,13 +52,13 @@
       <dependency>
         <groupId>de.gedoplan</groupId>
         <artifactId>baselibs-persistence</artifactId>
-        <version>1.7</version>
+        <version>1.8</version>
       </dependency>
 
       <dependency>
         <groupId>de.gedoplan</groupId>
         <artifactId>baselibs-utils</artifactId>
-        <version>1.7</version>
+        <version>1.8</version>
       </dependency>
 
       <dependency>
