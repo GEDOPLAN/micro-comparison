@@ -1,4 +1,0 @@
-= jee-micro-demo
-
-*Demo for JEE microservices*
-

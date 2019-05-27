@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>de.gedoplan</groupId>
+    <groupId>de.gedoplan.showcase</groupId>
     <artifactId>micro-comparison</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>micro-thorntail</artifactId>
+  <artifactId>micro-comparison-thorntail</artifactId>
 
   <packaging>war</packaging>
 

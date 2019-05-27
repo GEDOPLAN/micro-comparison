@@ -26,11 +26,11 @@
   </repositories>
 
   <modules>
-    <module>micro-kumuluzee</module>
-    <module>micro-spring</module>
+    <module>micro-comparison-kumuluzee</module>
+    <module>micro-comparison-spring</module>
     <!-- TODO Thorntail startet wg. diverser fehlender Dependencies nicht -->
     <!-- <module>micro-thorntail</module> -->
-    <module>micro-wildfly</module>
+    <module>micro-comparison-wildfly</module>
   </modules>
 
   <dependencyManagement>
