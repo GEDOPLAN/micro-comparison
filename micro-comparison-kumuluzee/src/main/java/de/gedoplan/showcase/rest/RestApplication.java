@@ -1,4 +1,4 @@
-package de.gedoplan.rest;
+package de.gedoplan.showcase.rest;
 
 import javax.enterprise.context.Dependent;
 import javax.ws.rs.ApplicationPath;

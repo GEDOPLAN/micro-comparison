@@ -1,7 +1,7 @@
-package de.gedoplan.persistence;
+package de.gedoplan.showcase.persistence;
 
 import de.gedoplan.baselibs.persistence.repository.SingleIdEntityRepository;
-import de.gedoplan.entity.Person;
+import de.gedoplan.showcase.entity.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;

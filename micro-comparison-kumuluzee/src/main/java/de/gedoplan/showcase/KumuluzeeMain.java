@@ -1,4 +1,4 @@
-package de.gedoplan;
+package de.gedoplan.showcase;
 
 import com.kumuluz.ee.EeApplication;
 
