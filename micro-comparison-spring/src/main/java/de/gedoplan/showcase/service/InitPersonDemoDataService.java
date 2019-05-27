@@ -1,7 +1,7 @@
-package de.gedoplan.service;
+package de.gedoplan.showcase.service;
 
-import de.gedoplan.entity.Person;
-import de.gedoplan.persistence.PersonRepository;
+import de.gedoplan.showcase.entity.Person;
+import de.gedoplan.showcase.persistence.PersonRepository;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

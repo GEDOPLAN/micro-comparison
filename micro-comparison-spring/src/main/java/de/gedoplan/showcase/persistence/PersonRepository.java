@@ -1,6 +1,6 @@
-package de.gedoplan.persistence;
+package de.gedoplan.showcase.persistence;
 
-import de.gedoplan.entity.Person;
+import de.gedoplan.showcase.entity.Person;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Propagation;
