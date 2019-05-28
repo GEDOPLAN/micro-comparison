@@ -5,8 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import de.gedoplan.showcase.TestBase;
 import de.gedoplan.showcase.entity.Person;
 
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,25 +22,31 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.runner.RunWith;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PersonResourceTest {
-  private static final String serverUrl = "http://localhost:8080";
-  private static final String serverUrlWebContext = serverUrl;
-  private static final String serverUrlRestContext = serverUrlWebContext + "/rs";
+@RunWith(Arquillian.class)
+public class PersonResourceTest extends TestBase {
+  static Client client;
 
-  private static Client client;
-  private static WebTarget personTarget;
+  @ArquillianResource
+  URL baseUrl;
+
+  WebTarget personTarget;
 
   @BeforeClass
   public static void beforeClass() {
     client = ClientBuilder.newClient();
-    personTarget = client.target(serverUrlRestContext + "/person");
+  }
+
+  @Before
+  public void before() throws Exception {
+    personTarget = client.target(baseUrl.toURI()).path("person");
   }
 
   @AfterClass
@@ -74,7 +82,7 @@ public class PersonResourceTest {
   }
 
   @Test
-  public void test_02_PostPutDelete() throws Exception {
+  public void test_02_PostGetDelete() throws Exception {
     Person person = new Person("Duck", "Tick-" + UUID.randomUUID().toString());
 
     Response response = personTarget
