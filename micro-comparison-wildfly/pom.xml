@@ -13,7 +13,33 @@
 
   <packaging>war</packaging>
 
+  <properties>
+    <wildfly.version>16.0.0.Final</wildfly.version>
+
+    <arquillian.container.qualifier>unspecified</arquillian.container.qualifier>
+    <arquillian.container.config><![CDATA[
+      <defaultProtocol type="Servlet 3.0" />
+      <container qualifier="${arquillian.container.qualifier}" default="true">
+      </container>
+    ]]></arquillian.container.config>
+
+    <server.port.prefix>1</server.port.prefix>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.4.1.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
+    <!-- Main dependencies -->
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
@@ -36,15 +62,60 @@
     </dependency>
 
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jul</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.protocol</groupId>
+      <artifactId>arquillian-protocol-servlet</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -100,6 +171,108 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+
+    <!-- Profil für die Ausführung der Tests mit einem gemanagten WildFly-Server. Die Server-Software wird bei Bedarf heruntergeladen und in target/wildfly... installiert. Der Server wird für die Tests
+      automatisch gestartet und nachher wieder gestoppt. Achtung: Dieses Profil ist nicht vollständig innerhalb von Eclipse nutzbar, da m2e die Dependency- und Antrun-Plugins nicht unterstützt! Der Download,
+      die Installation und KOnfiguration des Servers muss von der Kommandozeile aus durchgeführt werden. -->
+    <profile>
+      <id>test-managed</id>
+
+      <properties>
+        <server.type>wildfly</server.type>
+        <server.version>${wildfly.version}</server.version>
+
+        <arquillian.container.qualifier>wildfly-managed</arquillian.container.qualifier>
+
+        <skipTests>false</skipTests>
+
+        <wildfly.home>${project.build.directory}/wildfly-${server.version}</wildfly.home>
+
+        <wildfly.port.offset>${server.port.prefix}0000</wildfly.port.offset>
+
+        <arquillian.container.config><![CDATA[
+          <defaultProtocol type="Servlet 3.0" />
+          <container qualifier="${arquillian.container.qualifier}" default="true">
+            <configuration>
+              <property name="jbossHome">${wildfly.home}</property>
+              <property name="serverConfig">standalone.xml</property>
+              <property name="javaVmArguments">-Xmx512m -Djboss.socket.binding.port-offset=${wildfly.port.offset}</property>
+              <property name="managementPort">${server.port.prefix}9990</property>"
+            </configuration>
+          </container>
+        ]]></arquillian.container.config>
+      </properties>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-managed</artifactId>
+          <version>2.2.0.Final</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <plugins>
+          <!-- Server downloaden und unter target installieren -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unpack</id>
+                <phase>process-test-classes</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+
+                      <groupId>org.wildfly</groupId>
+                      <artifactId>wildfly-dist</artifactId>
+                      <version>${server.version}</version>
+                      <type>zip</type>
+
+                      <overWrite>false</overWrite>
+                      <outputDirectory>${project.build.directory}</outputDirectory>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Profil für Tests mit einem bereits laufenden WildFly. Es wird angenommen, dass der Server passend konfiguriert ist. -->
+    <profile>
+      <id>test-remote</id>
+
+      <properties>
+        <server.type>wildfly</server.type>
+        <server.version>${wildfly.version}</server.version>
+
+        <server.port.prefix></server.port.prefix>
+
+        <wildfly.port.offset>0</wildfly.port.offset>
+
+        <arquillian.container.qualifier>wildfly-remote</arquillian.container.qualifier>
+
+        <skipTests>false</skipTests>
+      </properties>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-remote</artifactId>
+          <version>2.2.0.Final</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 
