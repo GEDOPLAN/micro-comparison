@@ -37,7 +37,6 @@ public class TestBase {
     archive.addAsResource("META-INF/beans.xml");
     archive.addAsResource("META-INF/persistence.xml");
     archive.addAsResource("config.yaml");
-    archive.addAsResource("log4j2.xml");
 
     // Add runtime dependencies
     File[] dependencies = Maven
@@ -50,7 +49,7 @@ public class TestBase {
         .asFile();
     archive.addAsLibraries(dependencies);
 
-    System.out.println(archive.toString(true));
+    // System.out.println(archive.toString(true));
 
     return archive;
   }
