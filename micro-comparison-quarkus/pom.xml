@@ -150,20 +150,13 @@
                           <fileSet>
                             <directory>${project.build.directory}</directory>
                             <includes>
-                              <include>classes/**</include>
+                              <include>${project.artifactId}-runner.jar</include>
+                              <include>lib/**</include>
                             </includes>
                             <outputDirectory>.</outputDirectory>
                             <fileMode>0644</fileMode>
                           </fileSet>
                         </fileSets>
-                        <dependencySets>
-                          <dependencySet>
-                            <useProjectArtifact>false</useProjectArtifact>
-                            <scope>runtime</scope>
-                            <outputDirectory>lib</outputDirectory>
-                            <fileMode>0644</fileMode>
-                          </dependencySet>
-                        </dependencySets>
                       </inline>
                     </assembly>
                   </build>
