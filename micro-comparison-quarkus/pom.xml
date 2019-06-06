@@ -92,22 +92,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- <dependency> -->
-    <!-- <groupId>org.jboss.resteasy</groupId> -->
-    <!-- <artifactId>resteasy-client</artifactId> -->
-    <!-- <scope>test</scope> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.jboss.resteasy</groupId> -->
-    <!-- <artifactId>resteasy-jackson-provider</artifactId> -->
-    <!-- <scope>test</scope> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.jboss.resteasy</groupId> -->
-    <!-- <artifactId>resteasy-jaxb-provider</artifactId> -->
-    <!-- <scope>test</scope> -->
-    <!-- </dependency> -->
-
   </dependencies>
 
   <build>
@@ -130,6 +114,7 @@
   </build>
 
   <profiles>
+    <!-- Create docker image -->
     <profile>
       <id>docker</id>
       <build>
@@ -169,6 +154,35 @@
                 <goals>
                   <goal>build</goal>
                 </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Create docker image containing native executable -->
+    <!-- TODO Native build completes with errors -->
+    <!-- TODO Docker build still missing -->
+    <profile>
+      <id>docker-native</id>
+      <properties>
+        <native-image.docker-build>true</native-image.docker-build>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <version>${quarkus.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>native-image</goal>
+                </goals>
+                <configuration>
+                  <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                </configuration>
               </execution>
             </executions>
           </plugin>
