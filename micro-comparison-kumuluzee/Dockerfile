@@ -1,5 +1,5 @@
-FROM openjdk:8
-#FROM gcr.io/distroless/java
+FROM adoptopenjdk:8-jre-hotspot
+#FROM adoptopenjdk:8-jre-openj9
 
 RUN useradd -m micro
 
