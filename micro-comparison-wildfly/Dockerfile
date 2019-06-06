@@ -1,14 +1,18 @@
-FROM jboss/wildfly:16.0.0.Final
+FROM lorislab/galleon-wildfly:16.0.0.Final as buildhelper
 
-# Add deployment
-ADD --chown=jboss:jboss maven/* /opt/jboss/wildfly/standalone/deployments/
+RUN galleon install wildfly:current#${WILDFLY_VERSION} --layers=jaxrs,cdi,jpa,h2-database --dir=wildfly
 
-USER jboss
+FROM adoptopenjdk:8-jre-hotspot
 
-# Setup WildFly
-# Not needed anymore, since application uses the default datasource
-#ADD --chown=jboss:jboss src/main/wildfly/wildfly-setup.cli $HOME
-#RUN cd $HOME \
-#    && sh $JBOSS_HOME/bin/jboss-cli.sh --file=wildfly-setup.cli \
-#    && rm wildfly-setup.cli \
-#    && rm -fr $JBOSS_HOME/standalone/configuration/standalone_xml_history
+RUN useradd -m micro
+
+USER micro
+
+COPY --from=buildhelper --chown=micro:micro /opt/jboss/wildfly /home/micro/wildfly
+COPY --chown=micro:micro maven/* /home/micro/wildfly/standalone/deployments
+
+WORKDIR /home/micro
+
+ENTRYPOINT ["/home/micro/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
+
+EXPOSE 8080
