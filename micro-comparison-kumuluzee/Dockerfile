@@ -9,6 +9,6 @@ COPY --chown=micro:micro maven /home/micro
 
 WORKDIR /home/micro
 
-ENTRYPOINT [ "java", "-cp", "classes:lib/*", "de.gedoplan.KumuluzeeMain" ]
+ENTRYPOINT [ "java", "-cp", "classes:lib/*", "de.gedoplan.showcase.KumuluzeeMain" ]
 
 EXPOSE 8080
