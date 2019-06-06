@@ -95,7 +95,6 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.28.0</version>
             <configuration>
               <images>
                 <image>
@@ -103,7 +102,7 @@
                   <build>
                     <dockerFileDir>${project.basedir}</dockerFileDir>
                     <assembly>
-                      <descriptorRef>artifact</descriptorRef>
+                      <descriptorRef>artifact-with-dependencies</descriptorRef>
                     </assembly>
                   </build>
                 </image>
