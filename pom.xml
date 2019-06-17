@@ -59,6 +59,12 @@
         <groupId>de.gedoplan</groupId>
         <artifactId>baselibs-utils</artifactId>
         <version>1.8</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
