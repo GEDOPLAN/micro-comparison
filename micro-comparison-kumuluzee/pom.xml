@@ -12,7 +12,7 @@
   <artifactId>micro-comparison-kumuluzee</artifactId>
 
   <packaging>jar</packaging>
-  
+
   <properties>
     <kumuluzee.version>3.4.0</kumuluzee.version>
   </properties>
@@ -168,6 +168,7 @@
   </build>
 
   <profiles>
+    <!-- Docker-Image bauen -->
     <profile>
       <id>docker</id>
       <build>
@@ -213,6 +214,28 @@
                 <phase>install</phase>
                 <goals>
                   <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Uber JAR bauen -->
+    <profile>
+      <id>uberjar</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-maven-plugin</artifactId>
+            <version>${kumuluzee.version}</version>
+            <executions>
+              <execution>
+                <id>package</id>
+                <goals>
+                  <goal>repackage</goal>
                 </goals>
               </execution>
             </executions>
