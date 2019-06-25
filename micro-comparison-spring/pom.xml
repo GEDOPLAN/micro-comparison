@@ -13,12 +13,16 @@
 
   <packaging>jar</packaging>
 
+  <properties>
+    <springboot.version>1.5.16.RELEASE</springboot.version>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.16.RELEASE</version>
+        <version>${springboot.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -85,6 +89,22 @@
 
   <build>
     <finalName>${project.artifactId}</finalName>
+
+    <plugins>
+      <!-- Fat JAR bauen -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${springboot.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
   <profiles>
@@ -102,7 +122,8 @@
                   <build>
                     <dockerFileDir>${project.basedir}</dockerFileDir>
                     <assembly>
-                      <descriptorRef>artifact-with-dependencies</descriptorRef>
+<!--                       <descriptorRef>artifact-with-dependencies</descriptorRef> -->
+                      <descriptorRef>artifact</descriptorRef>
                     </assembly>
                   </build>
                 </image>
