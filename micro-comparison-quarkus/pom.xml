@@ -15,6 +15,8 @@
 
   <properties>
     <quarkus.version>0.15.0</quarkus.version>
+
+    <uberJar>false</uberJar>
   </properties>
 
   <dependencyManagement>
@@ -31,11 +33,13 @@
 
   <dependencies>
     <!-- Main dependencies -->
-    <dependency>
+    <!--
+      <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-web-api</artifactId>
       <scope>provided</scope>
-    </dependency>
+      </dependency>
+    -->
 
     <dependency>
       <groupId>com.h2database</groupId>
@@ -95,13 +99,14 @@
   </dependencies>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
-
     <plugins>
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.version}</version>
+        <configuration>
+          <uberJar>${uberJar}</uberJar>
+        </configuration>
         <executions>
           <execution>
             <goals>
@@ -189,6 +194,15 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- Fat JAR bauen -->
+    <profile>
+      <id>fatjar</id>
+      <properties>
+        <uberJar>true</uberJar>
+      </properties>
+    </profile>
+
   </profiles>
 
 </project>

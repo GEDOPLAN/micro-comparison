@@ -51,11 +51,13 @@
       <artifactId>baselibs-utils</artifactId>
     </dependency>
 
-    <dependency>
+    <!--
+      <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-web-api</artifactId>
       <scope>provided</scope>
-    </dependency>
+      </dependency>
+    -->
 
     <dependency>
       <groupId>junit</groupId>
@@ -87,26 +89,6 @@
 
   </dependencies>
 
-  <build>
-    <finalName>${project.artifactId}</finalName>
-
-    <plugins>
-      <!-- Fat JAR bauen -->
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${springboot.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <profiles>
     <profile>
       <id>docker</id>
@@ -122,8 +104,7 @@
                   <build>
                     <dockerFileDir>${project.basedir}</dockerFileDir>
                     <assembly>
-<!--                       <descriptorRef>artifact-with-dependencies</descriptorRef> -->
-                      <descriptorRef>artifact</descriptorRef>
+                      <descriptorRef>artifact-with-dependencies</descriptorRef>
                     </assembly>
                   </build>
                 </image>
@@ -131,7 +112,7 @@
             </configuration>
             <executions>
               <execution>
-                <phase>install</phase>
+                <phase>package</phase>
                 <goals>
                   <goal>build</goal>
                 </goals>
@@ -141,6 +122,28 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- Fat JAR bauen -->
+    <profile>
+      <id>fatjar</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${springboot.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>repackage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 
 </project>
