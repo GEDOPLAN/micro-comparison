@@ -60,8 +60,7 @@ public class PersonResourceTest extends TestBase {
     List<Person> persons = personTarget
         .request()
         .accept(MediaType.APPLICATION_JSON)
-        .get(new GenericType<List<Person>>() {
-        });
+        .get(new GenericType<List<Person>>() {});
 
     boolean foundDagobert = false;
     boolean foundDonald = false;

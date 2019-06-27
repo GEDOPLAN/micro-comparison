@@ -30,8 +30,7 @@ public class PersonResourceTest {
         .then()
         .statusCode(HttpStatus.SC_OK)
         .extract()
-        .as(new TypeRef<List<Person>>() {
-        });
+        .as(new TypeRef<List<Person>>() {});
 
     boolean foundDagobert = false;
     boolean foundDonald = false;
