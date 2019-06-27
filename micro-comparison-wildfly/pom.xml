@@ -135,10 +135,6 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <finalName>${project.artifactId}</finalName>
-  </build>
-
   <profiles>
     <profile>
       <id>docker</id>
