@@ -9,6 +9,7 @@ COPY --chown=micro:micro maven /home/micro
 
 WORKDIR /home/micro
 
-ENTRYPOINT [ "java", "-jar", "/home/micro/micro-comparison-spring.jar" ]
+ENTRYPOINT [ "java", "-cp", "/home/micro/*", "de.gedoplan.showcase.SpringMain" ]
+#ENTRYPOINT [ "java", "-jar", "/home/micro/micro-comparison-spring.jar" ]
 
 EXPOSE 8080
