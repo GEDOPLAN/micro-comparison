@@ -30,8 +30,6 @@
     <module>micro-comparison-kumuluzee</module>
     <module>micro-comparison-quarkus</module>
     <module>micro-comparison-spring</module>
-    <!-- TODO Thorntail startet wg. diverser fehlender Dependencies nicht -->
-    <!-- <module>micro-thorntail</module> -->
     <module>micro-comparison-wildfly</module>
   </modules>
 
@@ -112,6 +110,10 @@
   </dependencyManagement>
 
   <build>
+    <finalName>${project.artifactId}</finalName>
+    
+    <defaultGoal>clean package</defaultGoal>
+
     <pluginManagement>
       <plugins>
         <plugin>
