@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <quarkus.version>0.15.0</quarkus.version>
+    <quarkus.version>0.20.0</quarkus.version>
 
     <uberJar>false</uberJar>
   </properties>
