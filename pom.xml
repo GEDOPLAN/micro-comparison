@@ -6,7 +6,7 @@
   <parent>
     <groupId>de.gedoplan</groupId>
     <artifactId>build-master</artifactId>
-    <version>2019.5.2</version>
+    <version>2019.6.1</version>
   </parent>
 
   <groupId>de.gedoplan.showcase</groupId>

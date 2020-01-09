@@ -37,14 +37,14 @@ public class PersonResource {
   @GET
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public List<Person> getAll() {
-    return personRepository.findAll();
+    return this.personRepository.findAll();
   }
 
   @GET
   @Path(ID_TEMPLATE)
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Person getById(@PathParam(ID_NAME) Integer id) {
-    Person person = personRepository.findById(id);
+    Person person = this.personRepository.findById(id);
     if (person != null) {
       return person;
     }
@@ -60,7 +60,7 @@ public class PersonResource {
       throw new BadRequestException("id of updated object must be unchanged");
     }
 
-    personRepository.merge(Person);
+    this.personRepository.merge(Person);
   }
 
   @POST
@@ -70,7 +70,7 @@ public class PersonResource {
       throw new BadRequestException("id of new entry must not be set");
     }
 
-    personRepository.persist(Person);
+    this.personRepository.persist(Person);
 
     URI createdUri = uriInfo.getAbsolutePathBuilder().path(ID_TEMPLATE).resolveTemplate(ID_NAME, Person.getId()).build();
     return Response.created(createdUri).build();
@@ -79,7 +79,7 @@ public class PersonResource {
   @DELETE
   @Path(ID_TEMPLATE)
   public void deletePerson(@PathParam(ID_NAME) Integer id) {
-    personRepository.removeById(id);
+    this.personRepository.removeById(id);
   }
 
 }
