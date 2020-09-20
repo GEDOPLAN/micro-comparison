@@ -14,7 +14,7 @@
   <packaging>war</packaging>
 
   <properties>
-    <wildfly.version>16.0.0.Final</wildfly.version>
+    <wildfly.version>20.0.0.Final</wildfly.version>
 
     <arquillian.container.qualifier>unspecified</arquillian.container.qualifier>
     <arquillian.container.config><![CDATA[
@@ -56,8 +56,8 @@
     </dependency>
 
     <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -240,6 +240,14 @@
             </executions>
           </plugin>
 
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+              </systemProperties>
+            </configuration>
+          </plugin>
         </plugins>
       </build>
     </profile>
@@ -269,6 +277,19 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 

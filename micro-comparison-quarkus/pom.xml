@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <quarkus.version>1.0.0.Final</quarkus.version>
+    <quarkus.version>1.8.1.Final</quarkus.version>
 
     <uberJar>false</uberJar>
   </properties>
@@ -33,13 +33,6 @@
 
   <dependencies>
     <!-- Main dependencies -->
-    <!--
-      <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <scope>provided</scope>
-      </dependency>
-    -->
 
     <dependency>
       <groupId>com.h2database</groupId>

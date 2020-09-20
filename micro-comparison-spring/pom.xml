@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <springboot.version>1.5.16.RELEASE</springboot.version>
+    <springboot.version>2.3.4.RELEASE</springboot.version>
   </properties>
 
   <dependencyManagement>
@@ -50,14 +50,6 @@
       <groupId>de.gedoplan</groupId>
       <artifactId>baselibs-utils</artifactId>
     </dependency>
-
-    <!--
-      <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <scope>provided</scope>
-      </dependency>
-    -->
 
     <dependency>
       <groupId>junit</groupId>

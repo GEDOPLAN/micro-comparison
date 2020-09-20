@@ -14,7 +14,6 @@ import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -24,23 +23,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//import io.restassured.mapper.TypeRef;
+// import io.restassured.mapper.TypeRef;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class PersonResourceTest {
-
-  @LocalServerPort
-  protected int serverPort;
 
   @Autowired
   TestRestTemplate restTemplate;
 
   @Test
   public void test_01_DagobertAndDonalDuckExist() {
-    List<Person> persons = restTemplate
-        .exchange("/person", HttpMethod.GET, null, new ParameterizedTypeReference<List<Person>>() {})
-        .getBody();
+    List<Person> persons = this.restTemplate
+      .exchange("/person", HttpMethod.GET, null, new ParameterizedTypeReference<List<Person>>() {})
+      .getBody();
 
     boolean foundDagobert = false;
     boolean foundDonald = false;
@@ -64,19 +60,19 @@ public class PersonResourceTest {
   public void test_02_PostGetDelete() throws Exception {
     Person person = new Person("Duck", "Tick-" + UUID.randomUUID().toString());
 
-    ResponseEntity<?> response = restTemplate.postForEntity("/person", person, Void.class);
+    ResponseEntity<?> response = this.restTemplate.postForEntity("/person", person, Void.class);
     assertThat("POST status", response.getStatusCode(), is(HttpStatus.CREATED));
     URI newPersonUrl = response.getHeaders().getLocation();
     assertNotNull("New person URL must not be null", newPersonUrl);
 
-    Person personOnServer = restTemplate.getForEntity(newPersonUrl, Person.class).getBody();
+    Person personOnServer = this.restTemplate.getForEntity(newPersonUrl, Person.class).getBody();
     assertThat("New person name", personOnServer.getName(), is(person.getName()));
     assertThat("New person first name", personOnServer.getFirstname(), is(person.getFirstname()));
 
-    response = restTemplate.exchange(newPersonUrl, HttpMethod.DELETE, null, Void.class);
+    response = this.restTemplate.exchange(newPersonUrl, HttpMethod.DELETE, null, Void.class);
     assertThat("DELETE status", response.getStatusCode(), is(HttpStatus.NO_CONTENT));
 
-    response = restTemplate.getForEntity(newPersonUrl, Person.class);
+    response = this.restTemplate.getForEntity(newPersonUrl, Person.class);
     assertThat("GET after DELETE status", response.getStatusCode(), is(HttpStatus.NOT_FOUND));
   }
 

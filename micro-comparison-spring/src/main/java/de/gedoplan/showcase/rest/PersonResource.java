@@ -5,6 +5,7 @@ import de.gedoplan.showcase.persistence.PersonRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +29,14 @@ public class PersonResource {
   @RequestMapping
   public Iterable<Person> getAll() {
 
-    return personRepository.findAll();
+    return this.personRepository.findAll();
   }
 
   @RequestMapping(ID_TEMPLATE)
   public ResponseEntity<Person> get(@PathVariable Integer id) {
-    Person person = personRepository.findOne(id);
-    if (person != null) {
-      return ResponseEntity.ok(person);
+    Optional<Person> person = this.personRepository.findById(id);
+    if (person.isPresent()) {
+      return ResponseEntity.ok(person.get());
     } else {
       return ResponseEntity.notFound().build();
     }
@@ -43,19 +44,19 @@ public class PersonResource {
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Void> post(@RequestBody Person person, UriComponentsBuilder uriComponentsBuilder) throws URISyntaxException {
-    Person saved = personRepository.save(person);
+    Person saved = this.personRepository.save(person);
 
     URI location = uriComponentsBuilder
-        .pathSegment(PATH, saved.getId().toString())
-        .build()
-        .toUri();
+      .pathSegment(PATH, saved.getId().toString())
+      .build()
+      .toUri();
 
     return ResponseEntity.created(location).body(null);
   }
 
   @RequestMapping(path = ID_TEMPLATE, method = RequestMethod.DELETE)
   public ResponseEntity<Void> deletePerson(@PathVariable Integer id) {
-    personRepository.delete(id);
+    this.personRepository.deleteById(id);
     return ResponseEntity.noContent().build();
   }
 
