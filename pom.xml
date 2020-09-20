@@ -27,7 +27,6 @@
   </repositories>
 
   <modules>
-    <module>micro-comparison-kumuluzee</module>
     <module>micro-comparison-quarkus</module>
     <module>micro-comparison-spring</module>
     <module>micro-comparison-wildfly</module>
